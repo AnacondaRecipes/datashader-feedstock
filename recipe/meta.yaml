@@ -12,12 +12,11 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  noarch: python
   number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-  build:
+  host:
     - python
     - setuptools
   run:
@@ -26,7 +25,7 @@ requirements:
     - datashape >=0.5.1
     - numba >=0.35.0
     - numpy >=1.7
-    - pandas >=0.15.0
+    - pandas >=0.15.0,<0.21
     - pillow >=3.1.1
     - xarray >=0.9.6
     - toolz >=0.7.4
@@ -34,11 +33,12 @@ requirements:
     - param >=1.5.0,<2.0
 
 test:
-  requires:
-    - pytest >=2.8.5
-    - pytest-benchmark >=3.0.0
-    - rasterio
-    - scipy
+  # requires:
+  #   - pytest >=2.8.5
+  #   - pytest-benchmark >=3.0.0
+  #   # msarahan 2017-11-06 disabling rasterio tests until rasterio stack can be built on all platforms
+  #   # - rasterio
+  #   - scipy
   imports:
     - datashader
 
@@ -58,3 +58,4 @@ extra:
   recipe-maintainers:
     - jbednar
     - jbcrail
+    - msarahan
