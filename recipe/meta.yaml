@@ -1,6 +1,6 @@
 {% set name = "datashader" %}
-{% set version = "0.6.5" %}
-{% set sha256 = "583fa37fec94de59a8910097430fb0157927020448910ea78be4bc77899471e9" %}
+{% set version = "0.6.6" %}
+{% set sha256 = "2e4924e583b4d67a9520f13ecc978c62f3eaae9cb6a0010c4f8e4c41e021f5df" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/bokeh/{{ name }}/archive/{{ version }}.tar.gz
+  url: https://github.com/bokeh/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
@@ -23,14 +23,18 @@ requirements:
     - python
     - dask >=0.15.4
     - datashape >=0.5.1
-    - numba >=0.35.0
+    - numba >=0.37.0
     - numpy >=1.7
     - pandas >=0.20.3
     - pillow >=3.1.1
     - xarray >=0.9.6
     - toolz >=0.7.4
     - colorcet >=0.9.0
-    - param >=1.5.0,<2.0
+    - param >=1.6.0
+    - pyct
+    - scikit-image
+    - bokeh
+    - scipy
 
 test:
   requires:
