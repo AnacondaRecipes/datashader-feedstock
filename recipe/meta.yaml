@@ -1,6 +1,6 @@
 {% set name = "datashader" %}
 {% set version = "0.6.6" %}
-{% set sha256 = "2e4924e583b4d67a9520f13ecc978c62f3eaae9cb6a0010c4f8e4c41e021f5df" %}
+{% set sha256 = "fe0a3d96203a4af2c55e6ecf6ccb5d993e2f7ea3b03220e25108744e1fe0d73f" %}
 
 package:
   name: {{ name|lower }}
@@ -8,17 +8,20 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/bokeh/{{ name }}/archive/v{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
+  entry_points:
+    - datashader = datashader.__main__:main
 
 requirements:
   host:
     - python
-    - setuptools
+    - pip
+    - param >=1.6.1
   run:
     - python
     - dask >=0.15.4
@@ -40,13 +43,16 @@ test:
   requires:
     - pytest >=2.8.5
     - pytest-benchmark >=3.0.0
-    - rasterio
-    - scipy
   imports:
     - datashader
+  commands:                                                                         # [not win32 and not linux32]
+    - pytest --pyargs --doctest-modules --doctest-ignore-import-errors datashader   # [not win32 and not linux32]
+    - datashader copy-examples --path=. --force                                     # [not win32 and not linux32]
+    - datashader fetch-data --path=. --datasets small.yml                           # [not win32 and not linux32]
+    # TODO add notebook test once nbsmoke is available
 
 about:
-  home: https://github.com/bokeh/datashader
+  home: http://datashader.org
   license: New BSD
   license_file: LICENSE.txt
   summary: 'Data visualization toolchain based on aggregating into a grid'
@@ -54,7 +60,7 @@ about:
   description: |
     Datashader is a data rasterization pipeline for automating the process of
     creating meaningful representations of large amounts of data.
-  doc_url: https://datashader.readthedocs.io/
+  doc_url: http://datashader.org
   dev_url: https://github.com/bokeh/datashader
 
 extra:
