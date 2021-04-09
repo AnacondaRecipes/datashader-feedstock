@@ -1,4 +1,4 @@
-{% set version = "0.11.1" %}
+{% set version = "0.12.1" %}
 
 package:
   name: datashader
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/d/datashader/datashader-{{ version }}.tar.gz
-  sha256: b1f80415f72f92ccb660aaea7b2881ddd35d07254f7c44101709d42e819d6be6
+  sha256: a135612876dc3e4b16ccb9ddb70de50519825c8c1be251b49aefa550bcf8a39a
 
 build:
   number: 0
@@ -44,16 +44,17 @@ test:
     - nbsmoke >=0.2.6
     - pytest >=3.9.3,<6.0
     - pytest-benchmark >=3.0.0
+    - holoviews >=1.14.1
+    - netcdf4
   imports:
     - datashader
   commands:
-    - pytest --pyargs --doctest-modules --doctest-ignore-import-errors datashader
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
     - pytest --nbsmoke-run -k ".ipynb" getting_started/2_Pipeline.ipynb
 
 about:
-  home: http://datashader.org
+  home: https://datashader.org
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
@@ -61,8 +62,8 @@ about:
   description: |
     Datashader is a data rasterization pipeline for automating the process of
     creating meaningful representations of large amounts of data.
-  doc_url: http://datashader.org
-  dev_url: https://github.com/pyviz/datashader
+  doc_url: https://datashader.org
+  dev_url: https://github.com/holoviz/datashader
 
 extra:
   recipe-maintainers:
