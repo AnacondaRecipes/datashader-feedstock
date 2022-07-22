@@ -1,15 +1,17 @@
-{% set version = "0.13.0" %}
+{% set name = "datashader" %}
+{% set version = "0.14.1" %}
 
 package:
-  name: datashader
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/d/datashader/datashader-{{ version }}.tar.gz
-  sha256: e89b1c1e6d508c399738b2daf37aa102f63fc70be53cce9db90d654b19c2555f
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
+  sha256: 54617adf9d6554205ab7af0463d218f651e4d610cc72305cad574f4a5885ab86
 
 build:
-  number: 1
+  number: 0
+  skip: True  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
@@ -18,12 +20,12 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - param >=1.7.0
+    - pyct-core >=0.4.4
+    - setuptools >=30.3.0
     - wheel
-    - param >=1.6.1
-    - pyct-core >=0.4.5
   run:
-    - python >=2.7
+    - python
     - bokeh
     - colorcet >=0.9.0
     - dask >=0.18.0
@@ -35,7 +37,6 @@ requirements:
     - pillow >=3.1.1
     - pyct >=0.4.5
     - scipy
-    - toolz >=0.7.4
     - xarray >=0.9.6
 
 test:
@@ -44,7 +45,7 @@ test:
     - fastparquet >=0.1.6
     - flake8
     - nbsmoke >=0.2.6
-    - pytest >=3.9.3,<6.0
+    - pytest >=3.9.3
     - pytest-benchmark >=3.0.0
     - holoviews >=1.10.0
     - netcdf4
