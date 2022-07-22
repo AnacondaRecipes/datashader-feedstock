@@ -23,7 +23,7 @@ requirements:
     - python
     - pip
     - param >=1.7.0
-    - pyct-core >=0.4.4
+    - pyct >=0.4.5
     - setuptools >=30.3.0
     - wheel
   run:
@@ -41,14 +41,14 @@ requirements:
     - scipy
     - xarray >=0.9.6
   run_constrained:
-    # 2022/7/22: ImportError: Numba needs NumPy 1.21 or less on osx64
+    # 2022/7/22: ImportError: Numba needs NumPy 1.21 or less
     # numpy has a hard upper limit currently for numba 0.55.1
     - numpy >=1.18,<1.22
 
 test:
   requires:
     - pip
-    - fastparquet >=0.1.6   # [not((py==310) and (osx or aarch64))]
+    - fastparquet >=0.1.6
     - flake8
     - nbsmoke >=0.2.6
     - pytest >=3.9.3
@@ -64,8 +64,7 @@ test:
     - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
-    # 2022/7/22: fastparquet has missing artifacts fro python 3.10
-    - pytest --nbsmoke-run -k ".ipynb" getting_started/2_Pipeline.ipynb  # [not((py==310) and (osx or aarch64))]
+    - pytest --nbsmoke-run -k ".ipynb" getting_started/2_Pipeline.ipynb
 
 about:
   home: https://datashader.org
