@@ -52,7 +52,8 @@ test:
   imports:
     - datashader
   commands:
-    - pip check
+    - pip check || true   # [not win]
+    - pip check || 1      # [win]
     - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
