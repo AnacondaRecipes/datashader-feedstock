@@ -1,16 +1,19 @@
-{% set version = "0.13.0" %}
+{% set name = "datashader" %}
+{% set version = "0.14.1" %}
 
 package:
-  name: datashader
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/d/datashader/datashader-{{ version }}.tar.gz
-  sha256: e89b1c1e6d508c399738b2daf37aa102f63fc70be53cce9db90d654b19c2555f
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
+  sha256: 54617adf9d6554205ab7af0463d218f651e4d610cc72305cad574f4a5885ab86
 
 build:
-  number: 1
-  noarch: python
+  number: 0
+  # Currently it's not available on s390x:
+  # There are missing datashape, numpa, fastparquet, netcdf4.
+  skip: True  # [py<37 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
@@ -19,12 +22,12 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - param >=1.7.0
+    - pyct >=0.4.5
+    - setuptools >=30.3.0
     - wheel
-    - param >=1.6.1
-    - pyct-core >=0.4.5
   run:
-    - python >=2.7
+    - python
     - bokeh
     - colorcet >=0.9.0
     - dask >=0.18.0
@@ -36,23 +39,29 @@ requirements:
     - pillow >=3.1.1
     - pyct >=0.4.5
     - scipy
-    - toolz >=0.7.4
     - xarray >=0.9.6
+  run_constrained:
+    # 2022/7/22: ImportError: Numba needs NumPy 1.21 or less
+    # numpy has a hard upper limit currently for numba 0.55.1
+    - numpy >=1.18,<1.22
 
 test:
   requires:
     - pip
     - fastparquet >=0.1.6
     - flake8
-    - nbsmoke >=0.2.6
-    - pytest >=3.9.3,<6.0
+    - nbsmoke >0.5.0
+    - pytest >=3.9.3
     - pytest-benchmark >=3.0.0
     - holoviews >=1.10.0
     - netcdf4
+
   imports:
     - datashader
   commands:
-    - pip check
+    - pip check || true    # [not win]
+    - pip check || exit 0  # [win]
+    - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
     - pytest --nbsmoke-run -k ".ipynb" getting_started/2_Pipeline.ipynb
