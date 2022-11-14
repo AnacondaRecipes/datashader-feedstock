@@ -12,7 +12,7 @@ source:
 build:
   number: 0
   # Currently it's not available on s390x:
-  # There are missing datashape, numpa, fastparquet, netcdf4.
+  # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<37 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
@@ -22,28 +22,22 @@ requirements:
   host:
     - python
     - pip
-    - param >=1.7.0
-    - pyct >=0.4.5
-    - setuptools >=30.3.0
+    - param
+    - pyct
+    - setuptools
     - wheel
   run:
     - python
-    - bokeh
     - colorcet >=0.9.0
-    - dask >=0.18.0
+    - dask-core
     - datashape >=0.5.1
     - numba >=0.51
-    - numpy >=1.7
     - pandas >=0.24.1
     - param >=1.6.1
     - pillow >=3.1.1
     - pyct >=0.4.5
     - scipy
     - xarray >=0.9.6
-  run_constrained:
-    # 2022/7/22: ImportError: Numba needs NumPy 1.21 or less
-    # numpy has a hard upper limit currently for numba 0.55.1
-    - numpy >=1.18,<1.22
 
 test:
   requires:
