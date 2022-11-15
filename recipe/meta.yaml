@@ -10,9 +10,9 @@ source:
   sha256: 54617adf9d6554205ab7af0463d218f651e4d610cc72305cad574f4a5885ab86
 
 build:
-  number: 0
+  number: 1
   # Currently it's not available on s390x:
-  # There are missing datashape, numpa, fastparquet, netcdf4.
+  # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<37 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
@@ -22,30 +22,34 @@ requirements:
   host:
     - python
     - pip
-    - param >=1.7.0
-    - pyct >=0.4.5
-    - setuptools >=30.3.0
+    - param
+    - pyct
+    - setuptools
     - wheel
   run:
     - python
-    - bokeh
+    # It seems datashader 0.14.1 isn't compatible with bokeh >=3.0.0
+    - bokeh <3.0.0
     - colorcet >=0.9.0
     - dask >=0.18.0
     - datashape >=0.5.1
     - numba >=0.51
-    - numpy >=1.7
+    # 2022/11/14: NumPy has a hard upper limit.
+    # NumPy 1.22.0, 1.22.1, 1.22.2 are all broken for ufuncs
+    # xref: https://github.com/numba/numba/issues/7756
+    # NumPy >=1.23 breaks with CUDA test: test_reinterpret_array_type
+    # xref: https://github.com/numba/numba/issues/8529
+    - numpy >=1.18,!=1.22.0,!=1.22.1,!=1.22.2,<1.23
     - pandas >=0.24.1
     - param >=1.6.1
     - pillow >=3.1.1
     - pyct >=0.4.5
     - scipy
     - xarray >=0.9.6
-  run_constrained:
-    # 2022/7/22: ImportError: Numba needs NumPy 1.21 or less
-    # numpy has a hard upper limit currently for numba 0.55.1
-    - numpy >=1.18,<1.22
 
 test:
+  imports:
+    - datashader
   requires:
     - pip
     - fastparquet >=0.1.6
@@ -55,9 +59,6 @@ test:
     - pytest-benchmark >=3.0.0
     - holoviews >=1.10.0
     - netcdf4
-
-  imports:
-    - datashader
   commands:
     - pip check || true    # [not win]
     - pip check || exit 0  # [win]
