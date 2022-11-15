@@ -10,7 +10,7 @@ source:
   sha256: abc68ea6e243e9a5fd9bd8cf9bd3d8e6f6460492fa2697fea4f1db71054e24b8
 
 build:
-  number: 0
+  number: 1
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<37 or s390x]
@@ -41,6 +41,8 @@ requirements:
     - xarray >=0.9.6
 
 test:
+  imports:
+    - datashader
   requires:
     - pip
     - fastparquet >=0.1.6
@@ -50,9 +52,6 @@ test:
     - pytest-benchmark >=3.0.0
     - holoviews >=1.10.0
     - netcdf4
-
-  imports:
-    - datashader
   commands:
     - pip check || true    # [not win]
     - pip check || exit 0  # [win]
