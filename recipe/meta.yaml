@@ -28,33 +28,40 @@ requirements:
     - wheel
   run:
     - python
-    - colorcet >=0.9.0
+    - colorcet
     - dask-core
-    - datashape >=0.5.1
+    - datashape
     - numba >=0.51
-    - pandas >=0.24.1
-    - param >=1.6.1
-    - pillow >=3.1.1
-    - pyct >=0.4.5
+    - numpy
+    - pandas
+    - param
+    - pillow
+    - pyct
     - requests
     - scipy
-    - xarray >=0.9.6
+    - toolz
+    - xarray
 
 test:
   imports:
     - datashader
   requires:
-    - pip
-    - fastparquet >=0.1.6
+    - fastparquet
     - flake8
+    - holoviews
+    - nbconvert
+    - nbformat <=5.4.0
     - nbsmoke >0.5.0
-    - pytest >=3.9.3
-    - pytest-benchmark >=3.0.0
-    - holoviews >=1.10.0
     - netcdf4
+    - pip
+    - pyarrow
+    - pytest
+    - pytest-benchmark
+    - rasterio
   commands:
     - pip check || true    # [not win]
     - pip check || exit 0  # [win]
+    - datashader --version
     - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
