@@ -49,15 +49,11 @@ test:
     - fastparquet
     - flake8
     - holoviews
-    - nbconvert
-    - nbformat <=5.4.0
     - nbsmoke >0.5.0
     - netcdf4
     - pip
-    - pyarrow
     - pytest
     - pytest-benchmark
-    - rasterio
   commands:
     - pip check || true    # [not win]
     - pip check || exit 0  # [win]
