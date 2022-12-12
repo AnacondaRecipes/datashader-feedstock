@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.14.2" %}
+{% set version = "0.14.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: abc68ea6e243e9a5fd9bd8cf9bd3d8e6f6460492fa2697fea4f1db71054e24b8
+  sha256: cc76e8d372e5e341fca240486aaad64896f2e1a40083bba41133477ab50f5f6f
 
 build:
   number: 0
@@ -28,33 +28,36 @@ requirements:
     - wheel
   run:
     - python
-    - colorcet >=0.9.0
+    - colorcet
     - dask-core
-    - datashape >=0.5.1
+    - datashape
     - numba >=0.51
-    - pandas >=0.24.1
-    - param >=1.6.1
-    - pillow >=3.1.1
-    - pyct >=0.4.5
+    - numpy >=1.19,<2.0a
+    - pandas
+    - param
+    - pillow
+    - pyct
     - requests
     - scipy
-    - xarray >=0.9.6
+    - toolz
+    - xarray
 
 test:
   imports:
     - datashader
   requires:
-    - pip
-    - fastparquet >=0.1.6
+    - fastparquet
     - flake8
+    - holoviews
     - nbsmoke >0.5.0
-    - pytest >=3.9.3
-    - pytest-benchmark >=3.0.0
-    - holoviews >=1.10.0
     - netcdf4
+    - pip
+    - pytest
+    - pytest-benchmark
   commands:
     - pip check || true    # [not win]
     - pip check || exit 0  # [win]
+    - datashader --version
     - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
