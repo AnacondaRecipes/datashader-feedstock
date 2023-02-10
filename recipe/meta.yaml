@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.14.3" %}
+{% set version = "0.14.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: cc76e8d372e5e341fca240486aaad64896f2e1a40083bba41133477ab50f5f6f
+  sha256: 0241e611f951be3245972708e5a769bb183afbfceeec3cf2eef6d80af7756fbd
 
 build:
   number: 0
