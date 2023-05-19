@@ -33,7 +33,7 @@ requirements:
     - dask-core
     - datashape
     - numba >=0.51
-    - numpy >=1.21,<2.0a
+    - numpy
     - pandas
     - param
     - pillow
@@ -47,7 +47,7 @@ test:
   imports:
     - datashader
   requires:
-    - fastparquet
+    - fastparquet  # [py<311]
     - flake8
     - holoviews
     - nbsmoke >0.5.0
