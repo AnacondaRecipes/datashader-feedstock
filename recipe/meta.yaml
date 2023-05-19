@@ -33,7 +33,7 @@ requirements:
     - dask-core
     - datashape
     - numba >=0.51
-    - numpy >=1.19,<2.0a
+    - numpy >=1.21,<2.0a
     - pandas
     - param
     - pillow
