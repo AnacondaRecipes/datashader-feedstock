@@ -21,7 +21,7 @@ build:
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<37 or s390x]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
 
@@ -91,3 +91,5 @@ extra:
     - ocefpaf
     - philippjfr
     - jsignell
+  skip-lints:
+    - host_section_needs_exact_pinnings
