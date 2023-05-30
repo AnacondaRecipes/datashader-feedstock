@@ -13,6 +13,8 @@ source:
     # See https://github.com/holoviz/datashader/pull/1176
     # The patch should be removed after the next release of datashader.
     - 0001_do_not_use_warnings_from_numpy.patch
+    # Fixed in the main branch of datashader, but not yet released, see https://github.com/holoviz/datashader/commit/31b31826d74da38e4878f87c3e44511d08d302df
+    - 0002_fix_inspect_has_no_attribute_getargspec.patch
 
 build:
   number: 1

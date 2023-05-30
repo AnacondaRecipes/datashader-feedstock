@@ -1,0 +1,43 @@
+From 0d5c70d87396a035e0805f966e32f0f469727c7c Mon Sep 17 00:00:00 2001
+From: Serhii Kupriienko
+Date: Tue, 30 May 2023 12:05:31 +0300
+Subject: [PATCH] Fix fix inspect has no attribute getargspec
+
+---
+ datashader/glyphs/glyph.py      | 4 ++--
+ datashader/tests/test_macros.py | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/datashader/glyphs/glyph.py b/datashader/glyphs/glyph.py
+index 1a5547c..34f3176 100644
+--- a/datashader/glyphs/glyph.py
++++ b/datashader/glyphs/glyph.py
+@@ -148,10 +148,10 @@ class Glyph(Expr):
+             warnings.simplefilter("ignore")
+             try:
+                 # Numba keeps original function around as append.py_func
+-                append_args = inspect.getargspec(append.py_func).args
++                append_args = inspect.getfullargspec(append.py_func).args
+             except (TypeError, AttributeError):
+                 # Treat append as a normal python function
+-                append_args = inspect.getargspec(append).args
++                append_args = inspect.getfullargspec(append).args
+ 
+         # Get number of arguments accepted by append
+         append_arglen = len(append_args)
+diff --git a/datashader/tests/test_macros.py b/datashader/tests/test_macros.py
+index 2a1433e..488fa39 100644
+--- a/datashader/tests/test_macros.py
++++ b/datashader/tests/test_macros.py
+@@ -34,7 +34,7 @@ def function_with_vararg_call_numba(a, b, *others):
+ def get_args(fn):
+     with warnings.catch_warnings():
+         warnings.simplefilter("ignore")
+-        spec = inspect.getargspec(fn)
++        spec = inspect.getfullargspec(fn)
+ 
+     args = spec.args
+     if spec.varargs:
+-- 
+2.39.0
+
