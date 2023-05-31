@@ -31,7 +31,7 @@ requirements:
     - colorcet
     - dask-core
     - datashape
-    - numba >=0.51
+    - numba
     - numpy
     - pandas
     - param
