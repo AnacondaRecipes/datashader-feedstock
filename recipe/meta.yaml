@@ -19,9 +19,6 @@ build:
     - datashader = datashader.__main__:main
 
 requirements:
-  build:
-    - m2-patch  # [win]
-    - patch     # [not win]
   host:
     - python
     - pip
