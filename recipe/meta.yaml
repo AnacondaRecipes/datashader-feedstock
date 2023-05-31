@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.14.4" %}
+{% set version = "0.15.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,17 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: 0241e611f951be3245972708e5a769bb183afbfceeec3cf2eef6d80af7756fbd
-  patches:
-    # numpy has removed the warnings symbol from the init.py file so np.warnings is not valid in newer versions of numpy. 
-    # See https://github.com/holoviz/datashader/pull/1176
-    # The patch should be removed after the next release of datashader.
-    - 0001_do_not_use_warnings_from_numpy.patch
-    # Fixed in the main branch of datashader, but not yet released, see https://github.com/holoviz/datashader/commit/31b31826d74da38e4878f87c3e44511d08d302df
-    - 0002_fix_inspect_has_no_attribute_getargspec.patch
+  sha256: 81b0481a75530e713cfacf421da5e062ca5791832466987f70b59724cc03872f
 
 build:
-  number: 1
+  number: 0
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<37 or s390x]
@@ -26,9 +19,6 @@ build:
     - datashader = datashader.__main__:main
 
 requirements:
-  build:
-    - m2-patch  # [win]
-    - patch     # [not win]
   host:
     - python
     - pip
@@ -41,7 +31,7 @@ requirements:
     - colorcet
     - dask-core
     - datashape
-    - numba >=0.51
+    - numba
     - numpy
     - pandas
     - param
