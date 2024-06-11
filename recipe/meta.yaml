@@ -58,8 +58,7 @@ test:
     - pytest
     - pytest-benchmark
   commands:
-    - pip check || true    # [not win]
-    - pip check || exit 0  # [win]
+    - pip check
     - datashader --version
     - datashader --help
     - datashader copy-examples --path=. --force
