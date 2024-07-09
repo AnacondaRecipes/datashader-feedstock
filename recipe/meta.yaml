@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.16.2" %}
+{% set version = "0.16.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: 7899979b4c1adba6b4fd2e86caa3f5ef94c4e6ab234cbb7306ca6bfe243fc4df
+  sha256: 9d0040c7887f7a5a5edd374c297402fd208a62bf6845e87631b54f03b9ae479d
 
 build:
   number: 0
@@ -33,6 +33,7 @@ requirements:
     - multipledispatch
     - numba
     - numpy
+    - packaging
     - pandas
     - param
     - pillow
@@ -41,9 +42,6 @@ requirements:
     - scipy
     - toolz
     - xarray
-    # packaging is used in the code
-    # https://github.com/holoviz/datashader/blame/v0.16.2/datashader/__init__.py#L3
-    - packaging
 
 test:
   imports:
