@@ -1,19 +1,19 @@
 {% set name = "datashader" %}
-{% set version = "0.16.3" %}
+{% set version = "0.17.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: 9d0040c7887f7a5a5edd374c297402fd208a62bf6845e87631b54f03b9ae479d
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
+  sha256: 571aaea639e62222ba2fc49a530cffb3b1b183b6ec8ca8054978e01d2de79440
 
 build:
-  number: 1
+  number: 0
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
-  skip: True  # [py<39 or s390x]
+  skip: True  # [py<310 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
@@ -22,21 +22,17 @@ requirements:
   host:
     - python
     - pip
-    - param
-    - pyct
-    - setuptools
-    - wheel
+    - hatchling
+    - hatch-vcs
   run:
     - python
     - colorcet
-    - dask-core
     - multipledispatch
     - numba
     - numpy
     - packaging
     - pandas
     - param
-    - pillow
     - pyct
     - requests
     - scipy
