@@ -13,7 +13,7 @@ build:
   number: 0
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
-  skip: True  # [py<310 or s390x]
+  skip: True  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
