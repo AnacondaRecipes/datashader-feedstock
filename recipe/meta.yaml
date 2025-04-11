@@ -10,7 +10,7 @@ source:
   sha256: 6754f2d5747973e340e57a41cd3b8cb25a5e7ccd16fd945ca46ac2cd823236ec
 
 build:
-  number: 1
+  number: 0
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
   skip: True  # [py<310 or s390x]
