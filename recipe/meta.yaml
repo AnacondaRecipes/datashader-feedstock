@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.18.0" %}
+{% set version = "0.18.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/datashader-{{ version }}.tar.gz
-  sha256: 6754f2d5747973e340e57a41cd3b8cb25a5e7ccd16fd945ca46ac2cd823236ec
+  sha256: ad9390a9178eb03493fb67649f6570d59ccb371cf663533e0672a1826bb436b0
 
 build:
   number: 0
   # Currently it's not available on s390x:
   # There are missing datashape, numba, fastparquet, netcdf4.
-  skip: True  # [py<310]
+  skip: true  # [py<3100]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   entry_points:
     - datashader = datashader.__main__:main
@@ -22,8 +22,8 @@ requirements:
   host:
     - python
     - pip
-    - hatchling
     - hatch-vcs
+    - hatchling
   run:
     - python
     - colorcet
@@ -38,6 +38,7 @@ requirements:
     - scipy
     - toolz
     - xarray
+    - pyct-core
 
 test:
   imports:
@@ -57,7 +58,7 @@ test:
     - datashader --help
     - datashader copy-examples --path=. --force
     # just run one notebook for now; increase in the future if notebooks can be run quickly with test/tiny data
-    - pytest --nbsmoke-run -k ".ipynb" getting_started/2_Pipeline.ipynb
+    - "pytest --nbsmoke-run -k \".ipynb\" getting_started/2_Pipeline.ipynb"
 
 about:
   home: https://datashader.org
