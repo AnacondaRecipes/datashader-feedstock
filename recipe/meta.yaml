@@ -38,7 +38,6 @@ requirements:
     - scipy
     - toolz
     - xarray
-    - pyct-core
 
 test:
   imports:
