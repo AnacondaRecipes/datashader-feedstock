@@ -101,5 +101,3 @@ extra:
     - ocefpaf
     - philippjfr
     - jsignell
-  skip-lints:
-    - host_section_needs_exact_pinnings
