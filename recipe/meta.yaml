@@ -13,8 +13,6 @@ build:
   number: 0
   skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  entry_points:
-    - datashader = datashader.__main__:main
 
 requirements:
   host:
@@ -80,9 +78,6 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - pytest --pyargs datashader.tests
-    - datashader --version
-    - datashader --help
-    - datashader copy-examples --path=. --force
 
 about:
   home: https://datashader.org
