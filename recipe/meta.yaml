@@ -1,5 +1,5 @@
 {% set name = "datashader" %}
-{% set version = "0.18.2" %}
+{% set version = "0.19.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 53ef0bc35b9ba1034bdf290a2e28babf0fa2b075a3e5a822c79dcde12183d1ff
+  sha256: beab445a44ac5f1dbc3f562c85d595c886a29dce4cc85eeb9a50723b729d57a2
 
 build:
   number: 0
   skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  entry_points:
-    - datashader = datashader.__main__:main
 
 requirements:
   host:
@@ -75,13 +73,11 @@ test:
     - pytest
     - matplotlib
     - netcdf4
+    - hypothesis
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - pytest --pyargs datashader.tests
-    - datashader --version
-    - datashader --help
-    - datashader copy-examples --path=. --force
 
 about:
   home: https://datashader.org
