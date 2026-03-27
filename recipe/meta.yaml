@@ -75,6 +75,7 @@ test:
     - pytest
     - matplotlib
     - netcdf4
+    - hypothesis
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
